@@ -1,10 +1,13 @@
-from flask import Flask, request, url_for, flash, redirect, jsonify
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import sqlite3
+import hashlib
 import initflaskdb as ifdb
 
 app = Flask(__name__)
 CORS(app)
+
+HASH_SALT = "L6SmartAppDevelopment"
 
 def get_db_connection():
     conn = sqlite3.connect('database.db')
@@ -30,7 +33,8 @@ def fetch_user_by_id():
     try:
         userId = request.args.get('id')
         conn = get_db_connection()
-        return SQL_to_json(conn.execute('SELECT * FROM users WHERE id=?', userId))
+        return SQL_to_json(conn.execute('SELECT * FROM users WHERE id=?',
+                                        userId))
     except:
         return jsonify({"Error" : "User does not exist!"})
     finally:
@@ -40,13 +44,15 @@ def fetch_user_by_id():
 @app.route('/api/users/login', methods=['POST'])
 def login_user():
     #With Swift, we expect POSTed data through type 'application/json' POST not HTML Form POST
+    #Let us current assume we're hashing server side...
     try:
         loginData = request.get_json()
         username = loginData['username']
-        password = loginData['password']
+        password = hashlib.md5((loginData['password'] + HASH_SALT).encode()).hexdigest()
 
         conn = get_db_connection()
-        return SQL_to_json(conn.execute('SELECT * FROM users WHERE username = ? AND password = ?', (username, password)))
+        return SQL_to_json(conn.execute('SELECT * FROM users WHERE username = ? AND password = ?',
+                                        (username, password)))
     except:
         return jsonify({"Login" : False})
     finally:
@@ -56,14 +62,16 @@ def login_user():
 @app.route('/api/users/register', methods=['POST'])
 def add_new_user():
     #With Swift, we expect POSTed data through type 'application/json' POST not HTML Form POST
+    #Let us current assume we're hashing server side...
     try:
         userData = request.get_json()
         username = userData['username']
-        password = userData['password']
+        password = hashlib.md5((userData['password'] + HASH_SALT).encode()).hexdigest()
         email = userData['email']
 
         conn = get_db_connection()
-        conn.execute('INSERT INTO users (username, password, email) VALUES (?, ?, ?)', (username, password, email))
+        conn.execute('INSERT INTO users (username, password, email) VALUES (?, ?, ?)',
+                     (username, password, email))
 
         return jsonify({"Register_Success" : True})
     except:
@@ -73,10 +81,5 @@ def add_new_user():
         conn.commit()
         conn.close()
 
-
-
 ifdb.initdb()
 app.run()
-
-
-
