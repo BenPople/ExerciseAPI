@@ -1,0 +1,26 @@
+<html>
+    <head></head>
+
+    <body>
+        <script>
+            function userAction(){
+                fetch("http://127.0.0.1:5000/api/users/all")
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log(data);
+                    let userList = data;
+                    for(const user of userList){
+                        document.getElementById("test").innerHTML += user.username + "<br/>";
+                    }
+
+                })
+            }
+        </script>
+
+        <button onclick="userAction()">Click Me</button>
+
+        <h1 id="test"></h1>
+    </body>
+</html>
