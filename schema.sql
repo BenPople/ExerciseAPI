@@ -1,8 +1,15 @@
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS exercisetypes;
 
 CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL,
     password TEXT NOT NULL,
     email TEXT NOT NULL
+);
+
+CREATE TABLE exercisetypes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    description TEXT NOT NULL
 );
