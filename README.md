@@ -5,9 +5,9 @@ The Fitness Tracker is a Flask-based web application that allows users to track 
 ## Getting Started
 
 To get started with the Fitness Tracker, you'll need to clone the repository and install the necessary dependencies. You can do this by running the following commands:
- - `    $ git clone https://github.com/your-username/fitness-tracker.git
- - `   $ cd fitness-tracker
- - `   $ pip install -r requirements.txt
+ - `$ git clone https://github.com/your-username/fitness-tracker.git
+ - `$ cd fitness-tracker
+ - `$ pip install -r requirements.txt
 
 
 Once you've installed the dependencies, you can run the application by running the following command:
