@@ -29,6 +29,8 @@ The following endpoints are available in the Fitness Tracker:
 - `GET /api/exercises/get/byuserid`: Retrieve all exercise activities for a specific user.
 - `GET /api/exercises/get/details/byuserid`: Retrieve exercise activity details for a specific user.
 
+![Image of Fitness Tracker API](https://i.imgur.com/vxFDkgZ.png)
+
 ## Contributing
 
 If you'd like to contribute to the Fitness Tracker, you can do so by submitting pull requests or opening issues on the GitHub repository. 
