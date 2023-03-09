@@ -46,7 +46,7 @@ def login_user():
     try:
         loginData = request.get_json()
         username = loginData['username']
-        password = hashlib.md5((loginData['password'] + HASH_SALT).encode()).hexdigest()
+        password = hashlib.md5((loginData['password'] + ifdb.HASH_SALT).encode()).hexdigest()
 
         conn = get_db_connection()
         return SQL_to_json(conn.execute('SELECT * FROM users WHERE username = ? AND password = ?',
@@ -64,7 +64,7 @@ def add_new_user():
     try:
         userData = request.get_json()
         username = userData['username']
-        password = hashlib.md5((userData['password'] + HASH_SALT).encode()).hexdigest()
+        password = hashlib.md5((userData['password'] + ifdb.HASH_SALT).encode()).hexdigest()
         email = userData['email']
 
         conn = get_db_connection()
